@@ -12,12 +12,13 @@ public class PlayerUnitManager : NetworkBehaviour
         var unit = Instantiate(unitPrefab);
         unit.GetComponent<NetworkObject>().Spawn();
         unit.GetComponent<MilitaryUnit>().owningPlayer.Value = new NetworkObjectReference(NetworkManager.Singleton.ConnectedClients[rpcParams.Receive.SenderClientId].PlayerObject);
+
+        NetworkManager.Singleton.ConnectedClients[rpcParams.Receive.SenderClientId].PlayerObject.GetComponent<PlayerUnitManager>().troops.Add(unit);
         UnitSpawnedRpc(new NetworkObjectReference(unit.GetComponent<NetworkObject>()), RpcTarget.Single(rpcParams.Receive.SenderClientId, RpcTargetUse.Temp));
     }
     [Rpc(SendTo.SpecifiedInParams)]
     void UnitSpawnedRpc(NetworkObjectReference spawnedUnit, RpcParams rpcParams)
     {
-        troops.Add(spawnedUnit);
         Debug.Log("Troop Spawned!!!");
     }
     public void RequestUnit()
