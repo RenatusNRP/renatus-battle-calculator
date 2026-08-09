@@ -7,11 +7,10 @@ public class PlayerUnitManager : NetworkBehaviour
     public GameObject unitPrefab;
     public NetworkList<NetworkObjectReference> troops;
     [Rpc(SendTo.Server)]
-    void SpawnUnitRequestForMeRpc(int x, int y, RpcParams rpcParams)
+    void SpawnUnitRequestForMeRpc(Vector3 pos, RpcParams rpcParams)
     {
         
-        var unit = Instantiate(unitPrefab);
-        unitPrefab.transform.position = new Vector3(x, y, 0);
+        var unit = Instantiate(unitPrefab, pos, Quaternion.identity);
         unit.GetComponent<NetworkObject>().Spawn();
         unit.GetComponent<MilitaryUnit>().owningPlayer.Value = new NetworkObjectReference(NetworkManager.Singleton.ConnectedClients[rpcParams.Receive.SenderClientId].PlayerObject);
 
@@ -23,8 +22,8 @@ public class PlayerUnitManager : NetworkBehaviour
     {
         Debug.Log("Troop Spawned!!!");
     }
-    public void RequestUnit(int x, int y)
+    public void RequestUnit(Vector3 pos)
     {
-        SpawnUnitRequestForMeRpc(x, y, new RpcParams());
+        SpawnUnitRequestForMeRpc(pos, new RpcParams());
     }
 }

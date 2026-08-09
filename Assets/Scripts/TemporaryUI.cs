@@ -21,6 +21,9 @@ public class TemporaryUI : MonoBehaviour
     [SerializeField]
     Button m_SpawnTroopButton;
 
+    bool spawnTroopOnNextClick = false;
+    Camera cam;
+
     void Awake()
     {
         if (!FindAnyObjectByType<EventSystem>())
@@ -32,6 +35,7 @@ public class TemporaryUI : MonoBehaviour
             var eventSystem = new GameObject("EventSystem", typeof(EventSystem), inputType);
             eventSystem.transform.SetParent(transform);
         }
+        cam = Camera.main;
     }
 
     // Start is called before the first frame update
@@ -40,6 +44,20 @@ public class TemporaryUI : MonoBehaviour
         m_StartHostButton.onClick.AddListener(StartHost);
         m_StartClientButton.onClick.AddListener(StartClient);
         m_SpawnTroopButton.onClick.AddListener(SpawnTroop);
+    }
+
+    void Update()
+    {
+        if(spawnTroopOnNextClick && Input.GetMouseButtonDown(0))
+        {
+            spawnTroopOnNextClick = false;
+
+            Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            pos.z += 10;
+            NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerUnitManager>().RequestUnit(pos);
+
+        }
+
     }
 
     void StartClient()
@@ -56,7 +74,7 @@ public class TemporaryUI : MonoBehaviour
 
     void SpawnTroop()
     {
-        NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerUnitManager>().RequestUnit(0, 0);
+        spawnTroopOnNextClick = true;
     }
 
 
