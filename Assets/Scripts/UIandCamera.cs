@@ -49,35 +49,60 @@ public class UIAndCamera : MonoBehaviour
         m_SpawnTroopButton.onClick.AddListener(SpawnTroop);
     }
 
+    
+
     void Update()
     {
         Vector2 mousePos = Input.mousePosition;
+        Vector2 screenUV = new(mousePos.x / Screen.width - 0.5f, mousePos.y / Screen.height - 0.5f);
+        Vector3 move = Vector3.zero;
+        bool moveLeft = false, moveRight = false, moveUp = false, moveDown = false;
         if (Input.GetMouseButton(1))
         {
-
-
-            Vector2 screenUV = new(mousePos.x / Screen.width - 0.5f, mousePos.y / Screen.height - 0.5f);
-            Vector3 move = Vector3.zero;
             if (screenUV.x < -EDGE_THRESHOLD)
             {
-                move.x = -1f;
+                moveLeft = true;
             }
             if (screenUV.x > EDGE_THRESHOLD)
             {
-                move.x = 1f;
+                moveRight = true;
             }
             if (screenUV.y < -EDGE_THRESHOLD)
             {
-                move.y = -1f;
+                moveDown = true;
             }
             if (screenUV.y > EDGE_THRESHOLD)
             {
-                move.y = 1f;
+                moveUp = true;
             }
-            move = Quaternion.Euler(0f, transform.eulerAngles.y, 0f) * move.normalized;
-            cam.transform.Translate(move * (Time.deltaTime * speed), Space.World);
         }
-        
+
+        moveLeft = moveLeft || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow);
+        moveRight = moveRight || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow);
+        moveDown = moveDown || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow);
+        moveUp = moveUp || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow);
+
+
+        if (moveLeft)
+        {
+            move.x = -1f;
+        }
+        if (moveRight)
+        {
+            move.x = 1f;
+        }
+        if (moveDown)
+        {
+            move.y = -1f;
+        }
+        if (moveUp)
+        {
+            move.y = 1f;
+        }
+
+        move = Quaternion.Euler(0f, transform.eulerAngles.y, 0f) * move.normalized;
+        cam.transform.Translate(move * (Time.deltaTime * speed), Space.World);
+
         if (spawnTroopOnNextClick && Input.GetMouseButtonDown(0))
         {
             spawnTroopOnNextClick = false;

@@ -870,8 +870,9 @@ MonoBehaviour:
     may start a host or client via the buttons on the right, or via the inspector
     of the NetworkManager, or via code.
 
-    When you see the cube, you can move
-    it with the keys W, A, S, D'
+    Spawn Troop on next click spawns an
+    unit on next click, and holding right click permits edge scroll [and so does
+    arrows/wasd]'
 --- !u!1 &3258078209609027447
 GameObject:
   m_ObjectHideFlags: 0
