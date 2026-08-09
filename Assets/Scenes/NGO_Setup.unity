@@ -1309,7 +1309,7 @@ MonoBehaviour:
   m_StartHostButton: {fileID: 4233783646029756247}
   m_StartClientButton: {fileID: 873709753930428231}
   m_SpawnTroopButton: {fileID: 1240205034}
-  speed: 1
+  speed: 5
 --- !u!1 &7902460969351398507
 GameObject:
   m_ObjectHideFlags: 0

@@ -52,27 +52,31 @@ public class UIAndCamera : MonoBehaviour
     void Update()
     {
         Vector2 mousePos = Input.mousePosition;
-        Vector2 screenUV = new(mousePos.x / Screen.width - 0.5f, mousePos.y / Screen.height - 0.5f);
-        Vector3 move = Vector3.zero;
-        if(screenUV.x < -EDGE_THRESHOLD)
+        if (Input.GetMouseButton(1))
         {
-            move.x = -speed;
-        }
-        if (screenUV.x > EDGE_THRESHOLD)
-        {
-            move.x = speed;
-        }
-        if (screenUV.y < -EDGE_THRESHOLD)
-        {
-            move.y = -speed;
-        }
-        if (screenUV.y > EDGE_THRESHOLD)
-        {
-            move.y = speed;
-        }
-        move = Quaternion.Euler(0f, transform.eulerAngles.y, 0f) * move.normalized;
-        cam.transform.Translate(move * Time.deltaTime, Space.World);
 
+
+            Vector2 screenUV = new(mousePos.x / Screen.width - 0.5f, mousePos.y / Screen.height - 0.5f);
+            Vector3 move = Vector3.zero;
+            if (screenUV.x < -EDGE_THRESHOLD)
+            {
+                move.x = -1f;
+            }
+            if (screenUV.x > EDGE_THRESHOLD)
+            {
+                move.x = 1f;
+            }
+            if (screenUV.y < -EDGE_THRESHOLD)
+            {
+                move.y = -1f;
+            }
+            if (screenUV.y > EDGE_THRESHOLD)
+            {
+                move.y = 1f;
+            }
+            move = Quaternion.Euler(0f, transform.eulerAngles.y, 0f) * move.normalized;
+            cam.transform.Translate(move * (Time.deltaTime * speed), Space.World);
+        }
         
         if (spawnTroopOnNextClick && Input.GetMouseButtonDown(0))
         {
