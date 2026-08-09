@@ -621,7 +621,7 @@ GameObject:
   - component: {fileID: 7894043469413587527}
   - component: {fileID: 7894043469413587528}
   m_Layer: 5
-  m_Name: Temporary UI -- can be deleted
+  m_Name: UI and Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1309,6 +1309,7 @@ MonoBehaviour:
   m_StartHostButton: {fileID: 4233783646029756247}
   m_StartClientButton: {fileID: 873709753930428231}
   m_SpawnTroopButton: {fileID: 1240205034}
+  speed: 1
 --- !u!1 &7902460969351398507
 GameObject:
   m_ObjectHideFlags: 0
