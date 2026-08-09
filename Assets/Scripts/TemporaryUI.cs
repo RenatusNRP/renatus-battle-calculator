@@ -56,7 +56,7 @@ public class TemporaryUI : MonoBehaviour
 
     void SpawnTroop()
     {
-        NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerUnitManager>().RequestUnit();
+        NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerUnitManager>().RequestUnit(0, 0);
     }
 
 
