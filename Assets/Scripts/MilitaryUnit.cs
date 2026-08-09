@@ -3,5 +3,7 @@ using UnityEngine;
 
 public class MilitaryUnit : NetworkBehaviour
 {
-    public NetworkObject owningPlayer;
+    public NetworkVariable<NetworkObjectReference> owningPlayer;
+    
 }
+
