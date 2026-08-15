@@ -9,11 +9,7 @@ using UnityEngine.UI;
 using UnityEngine.InputSystem.UI;
 #endif
 
-
-    /// <summary>
-    /// A basic example of a UI to start a host or client.
-    /// If you want to modify this Script please copy it into your own project and add it to your copied UI Prefab.
-    /// </summary>
+[RequireComponent(typeof(RelayManager))]
 public class UIAndCamera : MonoBehaviour
 {
     [SerializeField]
@@ -47,6 +43,7 @@ public class UIAndCamera : MonoBehaviour
         m_StartHostButton.onClick.AddListener(StartHost);
         m_StartClientButton.onClick.AddListener(StartClient);
         m_SpawnTroopButton.onClick.AddListener(SpawnTroop);
+        m_SpawnTroopButton.gameObject.SetActive(false);
     }
 
     
@@ -115,15 +112,17 @@ public class UIAndCamera : MonoBehaviour
 
     void StartClient()
     {
-        NetworkManager.Singleton.StartClient();
         DeactivateButtons();
+        GetComponent<RelayManager>().JoinRelay();
     }
 
     void StartHost()
     {
-        NetworkManager.Singleton.StartHost();
         DeactivateButtons();
+        GetComponent<RelayManager>().StartRelay();
     }
+
+
 
     void SpawnTroop()
     {
@@ -132,9 +131,20 @@ public class UIAndCamera : MonoBehaviour
 
 
 
-    void DeactivateButtons()
+    public void DeactivateButtons()
     {
-        m_StartHostButton.interactable = false;
-        m_StartClientButton.interactable = false;
+        //m_StartHostButton.interactable = false;
+        //m_StartClientButton.interactable = false;
+        m_StartHostButton.gameObject.SetActive(false);
+        m_StartClientButton.gameObject.SetActive(false);
+    }
+    public void ReactivateButtons()
+    {
+        m_StartHostButton.gameObject.SetActive(true);
+        m_StartClientButton.gameObject.SetActive(true);
+    }
+    public void EnableInGameInteractions()
+    { 
+        m_StartClientButton.gameObject.SetActive(true);
     }
 }
