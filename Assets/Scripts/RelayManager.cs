@@ -39,6 +39,7 @@ public class RelayManager : MonoBehaviour
         }
         else
         {
+            Debug.Log("start working as indented");
             joinCodeHost.gameObject.SetActive(true);
             joinCodeClient.gameObject.SetActive(false);
 
@@ -56,6 +57,7 @@ public class RelayManager : MonoBehaviour
         }
         else
         {
+            Debug.Log("join working as indented");
             MyUIAndCamera.EnableInGameInteractions();
 
             joinCodeClient.gameObject.SetActive(false);

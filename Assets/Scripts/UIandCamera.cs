@@ -144,11 +144,15 @@ public class UIAndCamera : MonoBehaviour
         //m_StartClientButton.interactable = false;
         m_StartHostButton.gameObject.SetActive(false);
         m_StartClientButton.gameObject.SetActive(false);
+        MyRelaymanager.joinCodeClient.gameObject.SetActive(false);
     }
     public void ReactivateButtons()
     {
+    // return to a startish state
         m_StartHostButton.gameObject.SetActive(true);
         m_StartClientButton.gameObject.SetActive(true);
+        MyRelaymanager.joinCodeClient.gameObject.SetActive(true);
+        MyRelaymanager.joinCodeHost.gameObject.SetActive(false);
     }
     public void EnableInGameInteractions()
     { 

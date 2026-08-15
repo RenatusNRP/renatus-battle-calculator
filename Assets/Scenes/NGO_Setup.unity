@@ -648,7 +648,7 @@ GameObject:
   - component: {fileID: 1568384104}
   - component: {fileID: 1568384103}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: HostJoinCode
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -740,15 +740,15 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
+  m_fontSize: 35.8
   m_fontSizeBase: 36
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_characterHorizontalScale: 1
@@ -2030,7 +2030,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fedf899a4b7582a4aae908b6c44b39b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RelayManager
-  joinCodeHost: {fileID: 0}
+  joinCodeHost: {fileID: 1568384104}
   joinCodeClient: {fileID: 1890793128}
 --- !u!1 &7902460969351398507
 GameObject:
