@@ -60,6 +60,7 @@ public class RelayManager : MonoBehaviour
 
             joinCodeClient.gameObject.SetActive(false);
         }
+    }
 
 
     private async Task<string> StartHostWithRelay(int maxConnections = MAX_CONNECTIONS_DEFAULT)
