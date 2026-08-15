@@ -23,6 +23,12 @@ public class UIAndCamera : MonoBehaviour
     Camera cam;
     public const float EDGE_THRESHOLD = 0.45f;
     public float speed = 10f;
+
+    private RelayManager MyRelaymanager
+    {
+        get { return GetComponent<RelayManager>(); }
+    }
+
     void Awake()
     {
         if (!FindAnyObjectByType<EventSystem>())
@@ -44,6 +50,7 @@ public class UIAndCamera : MonoBehaviour
         m_StartClientButton.onClick.AddListener(StartClient);
         m_SpawnTroopButton.onClick.AddListener(SpawnTroop);
         m_SpawnTroopButton.gameObject.SetActive(false);
+        MyRelaymanager.joinCodeHost.gameObject.SetActive(false);
     }
 
     
@@ -113,13 +120,13 @@ public class UIAndCamera : MonoBehaviour
     void StartClient()
     {
         DeactivateButtons();
-        GetComponent<RelayManager>().JoinRelay();
+        MyRelaymanager.JoinRelay();
     }
 
     void StartHost()
     {
         DeactivateButtons();
-        GetComponent<RelayManager>().StartRelay();
+        MyRelaymanager.StartRelay();
     }
 
 

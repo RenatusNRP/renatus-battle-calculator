@@ -12,9 +12,14 @@ using UnityEngine;
 [RequireComponent(typeof(UIAndCamera))]
 public class RelayManager : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI joinCodeHost;
-    [SerializeField] private TMP_InputField joinCodeClient;
+    public TextMeshProUGUI joinCodeHost;
+    public TMP_InputField joinCodeClient;
     public const int MAX_CONNECTIONS_DEFAULT = 2;
+
+    private UIAndCamera MyUIAndCamera
+    {
+        get { return GetComponent<UIAndCamera>(); }
+    }
      // Start is called once before the first execution of Update after the MonoBehaviour is created
     private async void Start()
     {
@@ -30,12 +35,15 @@ public class RelayManager : MonoBehaviour
         {
             Debug.LogError("Join code creation fail");
 
-            GetComponent<UIAndCamera>().ReactivateButtons();
+            MyUIAndCamera.ReactivateButtons();
         }
         else
         {
-            joinCodeHost.text = joinCode;
-            GetComponent<UIAndCamera>().EnableInGameInteractions();
+            joinCodeHost.gameObject.SetActive(true);
+            joinCodeClient.gameObject.SetActive(false);
+
+            joinCodeHost.text = "Join code: " + joinCode;
+            MyUIAndCamera.EnableInGameInteractions();
         }
     }
     public async void JoinRelay()
@@ -44,10 +52,14 @@ public class RelayManager : MonoBehaviour
         if (!success)
         {
             Debug.LogError("Failed join!");
-            GetComponent<UIAndCamera>().ReactivateButtons();
+            MyUIAndCamera.ReactivateButtons();
         }
-        else GetComponent<UIAndCamera>().EnableInGameInteractions();
-    }
+        else
+        {
+            MyUIAndCamera.EnableInGameInteractions();
+
+            joinCodeClient.gameObject.SetActive(false);
+        }
 
 
     private async Task<string> StartHostWithRelay(int maxConnections = MAX_CONNECTIONS_DEFAULT)
